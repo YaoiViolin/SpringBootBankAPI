@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>cards</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<h3>Список карт</h3>
+<table>
+  <tr>
+    <th>Номера карт</th>
+  </tr>
+  <tr th:each="card : ${cards}">
+    <td th:text="${card.number}">Onions</td>
+  </tr>
+</table>
+
+<form th:action="@{/clients}" method = "GET">
+  <input type="hidden", name="existing_login" th:value="${existing_login}"></input>
+  <button type="submit">Назад</button>
+</form>
+
+</body>
+</html>

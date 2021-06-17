@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>clients</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style>
+    div {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<h3 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h3>
+
+<form th:action="@{/logout}" method="post">
+  <input type="submit" value="Sign Out"/>
+</form>
+<h4>Личный кабинет</h4>
+
+<div>
+  <div>
+  <form th:action="@{/cards}" method = "GET">
+  <button type="submit">Просмотр всех доступных карт</button>
+    <th:block th:if="${cards}">
+      <table>
+        <tr>
+          <th>Номера карт</th>
+        </tr>
+        <tr th:each="card : ${cards}">
+          <td th:text="${card.number}">Onions</td>
+        </tr>
+      </table>
+    </th:block>
+</form>
+  </div>
+  <div>
+<form th:action="@{/newcard}" method = "POST">
+  <button type="submit">Выпуск новой карты</button>
+</form>
+  </div>
+</div>
+
+</body>
+</html>

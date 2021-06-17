@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>create new card</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h3>Выпуск новой карты по счёту</h3>
+  <h5>Выберите счёт, к которому будет привязана новая карта</h5>
+  <form th:action="@{/cards}" method = "GET">
+    <div class="form-group blu-margin">
+      <select class="form-control" th:field="${accountid}"  id="dropOperator">
+        <option value="0">Выберите счёт</option>
+        <option th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.number}"></option>
+      </select>
+    </div>
+  </form>
+</body>
+</html>
