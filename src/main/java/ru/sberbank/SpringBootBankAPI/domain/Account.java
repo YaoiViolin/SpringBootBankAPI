@@ -1,6 +1,7 @@
 package ru.sberbank.SpringBootBankAPI.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "account")
@@ -9,9 +10,10 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String number;
+    private BigDecimal balance;
 
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public Long getId() {
@@ -30,11 +32,20 @@ public class Account {
         this.number = number;
     }
 
-    public User getClient() {
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public User getUser() {
         return user;
     }
 
-    public void setClient(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
+
 }

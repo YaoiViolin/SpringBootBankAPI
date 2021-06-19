@@ -11,6 +11,6 @@ public interface CardRepo extends JpaRepository<Card, Long> {
 
     @Query(value = "select * from card join\n" +
             "account on account.id = account_id\n" +
-            "where client_id = :clientid", nativeQuery = true)
-    List<Card> findAllByClientId (@Param("clientid") Long clientId);
+            "where user_id = :userid", nativeQuery = true)
+    List<Card> findAllByClientId (@Param("userid") Long userId);
 }

@@ -16,7 +16,7 @@ create table account (
     id identity primary key ,
     number varchar(10) not null,
     balance decimal(15,2),
-    client_id bigint not null references users (id)
+    user_id bigint not null references users (id)
 );
 create unique index on account (number);
 

@@ -1,8 +1,6 @@
 package ru.sberbank.SpringBootBankAPI.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +13,7 @@ import ru.sberbank.SpringBootBankAPI.repos.AccountRepo;
 import ru.sberbank.SpringBootBankAPI.repos.CardRepo;
 import ru.sberbank.SpringBootBankAPI.repos.UserRepo;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Random;
@@ -51,13 +50,32 @@ public class GreetingController {
         User user = userRepo.findByUsername(login);
         List<Card> cardsList = cardRepo.findAllByClientId(user.getId());
         model.addAttribute("cards",cardsList);
-        model.addAttribute("existing_login", login);
+        return "client";
+    }
 
+/*    @GetMapping("/balance")
+    public String getBalance (@RequestParam (name = "card_id") Long cardId, Model model){
+        Card card = cardRepo.getById(cardId);
+        Account account = card.getAccount();
+        BigDecimal balance = account.getBalance();
+        model.addAttribute(balance);
+        return "client";
+    }*/
+
+    @GetMapping("/accounts")
+    public String getAllAccounts(
+            Principal principal,
+            Model model
+    ) {
+        String login = principal.getName();
+        User user = userRepo.findByUsername(login);
+        List<Account> accountList = accountRepo.findByUserId(user.getId());
+        model.addAttribute("accounts", accountList);
         return "client";
     }
 
     @PostMapping("/newcard")
-    public String createNewCard(@RequestParam(name = "existing_login", required = true) String login, @RequestParam(name = "accountid", required = true) Long accountId, Model model) {
+    public String createNewCard(@RequestParam(name = "accountid", required = true) Long accountId, Model model) {
         Account account = accountRepo.getById(accountId);
 
         Random random = new Random();
@@ -70,10 +88,7 @@ public class GreetingController {
         card.setNumber(stringBuilder.toString());
         card.setAccount(account);
         cardRepo.save(card);
-        model.addAttribute("card", card);
-        model.addAttribute("existing_login", login);
-        return "newcard";
+        model.addAttribute("new_card_num",card.getNumber());
+        return "client";
     }
-
-
 }

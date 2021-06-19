@@ -20,25 +20,53 @@
 
 <div>
   <div>
-  <form th:action="@{/cards}" method = "GET">
-  <button type="submit">Просмотр всех доступных карт</button>
-    <th:block th:if="${cards}">
-      <table>
-        <tr>
-          <th>Номера карт</th>
-        </tr>
-        <tr th:each="card : ${cards}">
-          <td th:text="${card.number}">Onions</td>
-        </tr>
-      </table>
-    </th:block>
-</form>
+    <form th:action="@{/cards}" method = "GET">
+    <button type="submit">Просмотр всех доступных карт</button>
+      <th:block th:if="${cards}">
+        <table>
+          <tr>
+            <th>Номера карт</th>
+          </tr>
+          <tr th:each="card : ${cards}">
+            <td th:text="${card.number}">Onions</td>
+          </tr>
+        </table>
+      </th:block>
+    </form>
   </div>
   <div>
-<form th:action="@{/newcard}" method = "POST">
-  <button type="submit">Выпуск новой карты</button>
-</form>
+    <form th:action="@{/accounts}" method = "GET">
+      <button type="submit">Выпуск новой карты</button>
+      <th:block th:if="${new_card_num}">Новая карта выпущена
+        <q th:text="${new_card_num}"></q>
+      </th:block>
+    </form>
+
+      <th:block th:if="${accounts}">
+        <table>
+
+            <th>Выберите счёт, к которому будет привязана карта</th>
+
+          <div>
+          <tr th:each="account : ${accounts}">
+
+              <form th:action="@{/newcard}" method = "POST">
+                <input type="hidden", name="accountid" th:value="${account.id}"></input>
+                <td th:text="${account.number} + ' '" >Onions
+
+                </td>
+                <td>
+                  <button type="submit">Выпустить</button>
+                </td>
+
+              </form>
+
+          </tr>
+          </div>
+        </table>
+      </th:block>
   </div>
+
 </div>
 
 </body>

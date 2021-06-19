@@ -19,6 +19,7 @@ import javax.sql.DataSource;
         prePostEnabled = true,
         securedEnabled = true,
         jsr250Enabled = true)
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -48,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
@@ -56,6 +59,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username, user_role from users u join role ur on u.user_role_id = ur.id where u.username=?");
 
     }
-
-
 }

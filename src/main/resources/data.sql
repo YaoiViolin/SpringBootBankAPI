@@ -4,7 +4,7 @@ insert into users (username, password, user_role_id) values ('rita', 'qwerty', 2
 
 
 
-insert into account (number, balance, client_id) values ('00000', 120.5, 1),
+insert into account (number, balance, user_id) values ('00000', 120.5, 1),
                                                ('00001', 1676.0,1),
                                                ('00002',1204775.57, 2),
                                                ('00003', 3450.0,2),
